@@ -2,7 +2,10 @@ const express=require('express')
 const router =express.Router();
 
 router.get('/',(req,res)=>{
-    console.log(req.body);
-    res.send('Hi from auth body')
+    const obj={
+        Name:'talha',
+        Role:'coder'
+    }
+    res.json(obj)
 })
-module.exports=router
+module.exports=router 
