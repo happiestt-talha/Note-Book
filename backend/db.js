@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-const URI = "mongodb://localhost:27017";
+//specify a databse named 'inotebook' 
+const URI = "mongodb://localhost:27017/inotebook";
+// mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true, dbName: 'inotebook' });
 
 const connectToMongo = async () => {
     try {

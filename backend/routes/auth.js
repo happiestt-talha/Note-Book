@@ -5,6 +5,7 @@ const router =express.Router();
 const User=require('../models/User')
 
 router.post('/',[
+    body('name').isLength({min:3}).withMessage('Name with 3 character is appreciated'),
     body('email').isEmail().withMessage('Not a valid email bro'),
     body('password').isLength({ min: 5 }).withMessage('Itna Chota Password!!')
 ],(req,res)=>{
@@ -12,9 +13,13 @@ router.post('/',[
     if(!errors.isEmpty()){
         return res.status(400).json({ errors: errors.array() });
     }
-    console.log(req.body);
-    const user=User(req.body);
-    user.save();
-    res.send('Hello from Auth Body');
+    User.create({
+        name:req.body.name,
+        email:req.body.email,
+        password:req.body.password
+    }).then(user=>{res.json(user); console.log(req);})
+    .catch(err=>{console.log(err)
+    res.json({error:"Email already exists, enter a unique one please.",message:err.message})})
+    // res.json(req.body);
 })
 module.exports=router 

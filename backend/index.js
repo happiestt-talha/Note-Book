@@ -12,5 +12,5 @@ app.get('/', (req, res) => res.send('Hello from main route'));
 app.use('/api/auth',require('./routes/auth'));
 app.use('/api/notes',require('./routes/notes'))
 app.listen(port, () => {
-  console.log(`Example app listening on port http://localhost:${port}`)
+  console.log(`Notebook is listening on port >> http://localhost:${port} << sir!...`)
 })
