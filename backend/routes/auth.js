@@ -20,6 +20,5 @@ router.post('/',[
     }).then(user=>{res.json(user); console.log(req);})
     .catch(err=>{console.log(err)
     res.json({error:"Email already exists, enter a unique one please.",message:err.message})})
-    // res.json(req.body);
 })
 module.exports=router 
