@@ -17,7 +17,7 @@ router.post('/',[
         name:req.body.name,
         email:req.body.email,
         password:req.body.password
-    }).then(user=>{res.json(user); console.log(req);})
+    }).then(user=>{res.json(user)})
     .catch(err=>{console.log(err)
     res.json({error:"Email already exists, enter a unique one please.",message:err.message})})
 })
