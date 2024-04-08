@@ -18,4 +18,5 @@ const UserSchema=new mongoose.Schema({
         default:Date.now
     }
 })
-module.exports=mongoose.model('User',UserSchema)
+//added 'authUsers' as third arg to specify collection name in iNoteBook
+module.exports=mongoose.model('User',UserSchema,'authUsers')
