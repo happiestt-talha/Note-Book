@@ -1,40 +1,45 @@
-const express=require('express')
-const bcrypt=require('bcrypt')
+const express = require('express');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
+require('dotenv').config()
 
-const router =express.Router();
-const User=require('../models/User')
+const router = express.Router();
+const User = require('../models/User');
 
-router.post('/',[
-    //get data from request body
-    body('name').isLength({min:3}).withMessage('Name with 3 character is appreciated'),
-    body('email').isEmail().withMessage('Not a valid email bro'),
-    body('password').isLength({ min: 5 }).withMessage('Itna Chota Password!!')
-],async (req,res)=>{
-
-    //check if errors exist
-    const errors=validationResult(req);
-    if(!errors.isEmpty()){
-        return res.status(400).json({ errors: errors.array() });
-    }
-
-    //create user now using info given in request
-
-        //hash user's passsword
-        const hashedPassowrd= await bcrypt.hash(req.body.password,10)//give saltRounds as argument to hash password
-
-        //check if user is already logged in from provided email
-        const chkUser=await User.findOne({email:req.body.email});
-        if(chkUser){
-            return res.status(400).json({error:"User already exists"})
+router.post('/', [
+    body('name').notEmpty().withMessage('Name is required'),
+    body('email').isEmail().withMessage('Invalid email format'),
+    body('password').isLength({ min: 5 }).withMessage('Password should be at least 5 characters long')
+], async (req, res) => {
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
         }
-    User.create({
-        name:req.body.name,
-        email:req.body.email,
-        password:hashedPassowrd
-    }).then(user=>{res.json(user)})
-    .catch(err=>{console.log(err)
-    res.json({error:"An Error occured",message:err.message})})
 
-})
-module.exports=router 
+        const { name, email, password } = req.body;
+
+        // Check if the user already exists
+        let user = await User.findOne({ email });
+        if (user) {
+            return res.status(400).json({ error: "User already exists" });
+        }
+
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Create the user
+        user = await User.create({ name, email, password: hashedPassword });
+
+        // Generate JWT token for authentication
+        const token = jwt.sign({ userId: user._id }, process.env.ACCESS_TOKEN_SECRET);
+
+        res.json({ user, token }); // Return user details and token
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: "Server Error" , message:err.message});
+    }
+});
+
+module.exports = router;
