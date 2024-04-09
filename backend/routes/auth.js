@@ -7,7 +7,7 @@ require('dotenv').config()
 const router = express.Router();
 const User = require('../models/User');
 
-router.post('/', [
+router.post('/signup', [
     body('name').notEmpty().withMessage('Name is required'),
     body('email').isEmail().withMessage('Invalid email format'),
     body('password').isLength({ min: 5 }).withMessage('Password should be at least 5 characters long')
@@ -41,5 +41,41 @@ router.post('/', [
         res.status(500).json({ error: "Server Error" , message:err.message});
     }
 });
+
+router.post('/login',[
+    body('email').isEmail().withMessage('Invalid email format'),
+    body('password').isLength({ min: 5 }).withMessage('Password should be at least 5 characters long')
+],async (req,res)=>{
+    try {
+        const errors=validationResult(req)
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        let user = await User.findOne({email:req.body.email});
+        if (!user) {
+            return res.status(400).json({ error: "User not found" });
+        }
+        const chkPassword= await bcrypt.compare(req.body.password,user.password);
+        console.log('Password',chkPassword);
+        if(!chkPassword){
+            return res.status(400).json({ error: "password not correct" });
+        }
+
+        const token = jwt.sign({ userId: user._id }, process.env.ACCESS_TOKEN_SECRET);
+
+        res.json({ msg:"login successful",user, token }); 
+
+
+
+
+
+    } catch (error) {
+        res.json({
+            message:"Some Error occures",
+            ERROR:error.message
+        })
+    }
+
+})
 
 module.exports = router;
