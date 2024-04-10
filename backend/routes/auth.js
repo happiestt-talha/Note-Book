@@ -6,6 +6,7 @@ require('dotenv').config()
 
 const router = express.Router();
 const User = require('../models/User');
+const fetchUser = require('../middlewares/fetchUser');
 
 router.post('/signup', [
     body('name').notEmpty().withMessage('Name is required'),
@@ -64,18 +65,22 @@ router.post('/login',[
         const token = jwt.sign({ userId: user._id }, process.env.ACCESS_TOKEN_SECRET);
 
         res.json({ msg:"login successful",user, token }); 
-
-
-
-
-
     } catch (error) {
         res.json({
             message:"Some Error occures",
             ERROR:error.message
         })
     }
-
 })
-
+router.get('/getUser',fetchUser,async (req,res)=>{
+    try {
+        const user=await User.findById(req.user.userId).select("-password")
+        res.json({user})
+    } catch (error) {
+        res.json({
+            message:"Some Error occures",
+            ERROR:error.message
+        })
+    }
+})
 module.exports = router;
