@@ -34,7 +34,7 @@ router.post('/signup', [
         user = await User.create({ name, email, password: hashedPassword });
 
         // Generate JWT token for authentication
-        const token = jwt.sign({ userId: user._id }, process.env.ACCESS_TOKEN_SECRET);
+        const token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET);
 
         res.json({ user, token }); // Return user details and token
     } catch (err) {
