@@ -6,13 +6,16 @@ const fetchUser = (req, res, next) => {
     try {
 
 
-        const authHeader = req.headers['authorization'];
-        const authToken = authHeader && authHeader.split(' ')[1];
+        const authToken = req.header('authtoken');
+        // console.log("authToken: ",authToken);
 
-        if (!authToken) return res.sendStatus(401).json({ ERROR: "You didn't provided access Token yet..." })
+        if (!authToken) return res.json({ ERROR: "You didn't provided access Token yet..." })
+
         jwt.verify(authToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-            if (err) return res.sendStatus(403).json({ ERROR: "You don't have access with this token..." })
+            if (err) return res.json({ ERROR: "You don't have access with this token..." })
             req.user = user
+
+        // console.log("req.user: ",req.user);
             next()
         })
     } catch (error) {

@@ -39,47 +39,53 @@ router.post('/signup', [
         res.json({ user, token }); // Return user details and token
     } catch (err) {
         console.error(err.message);
-        res.status(500).json({ error: "Server Error" , message:err.message});
+        res.status(500).json({ error: "Server Error", message: err.message });
     }
 });
 
-router.post('/login',[
+router.post('/login', [
     body('email').isEmail().withMessage('Invalid email format'),
     body('password').isLength({ min: 5 }).withMessage('Password should be at least 5 characters long')
-],async (req,res)=>{
+], async (req, res) => {
+
     try {
-        const errors=validationResult(req)
+        const errors = validationResult(req)
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        let user = await User.findOne({email:req.body.email});
+        let user = await User.findOne({ email: req.body.email });
         if (!user) {
             return res.status(400).json({ error: "User not found" });
         }
-        const chkPassword= await bcrypt.compare(req.body.password,user.password);
-        console.log('Password',chkPassword);
-        if(!chkPassword){
+        const chkPassword = await bcrypt.compare(req.body.password, user.password);
+        console.log('Password', chkPassword);
+        if (!chkPassword) {
             return res.status(400).json({ error: "password not correct" });
         }
 
         const token = jwt.sign({ userId: user._id }, process.env.ACCESS_TOKEN_SECRET);
 
-        res.json({ msg:"login successful",user, token }); 
+        res.json({ msg: "login successful", user, token });
     } catch (error) {
         res.json({
-            message:"Some Error occures",
-            ERROR:error.message
+            message: "Some Error occures",
+            ERROR: error.message
         })
     }
 })
-router.get('/getUser',fetchUser,async (req,res)=>{
+router.get('/getUser', fetchUser, async (req, res) => {
     try {
-        const user=await User.findById(req.user.userId).select("-password")
-        res.json({user})
+        let userID=req.user.userId
+        console.log(userID)
+        const user = await User.findById(userID).select("-password")
+        console.log(user)
+        res.json({ user })
     } catch (error) {
         res.json({
-            message:"Some Error occures",
-            ERROR:error.message
+            title:"nawa katta",
+            user: req.user,
+            message: "Some Error occures",
+            ERROR: error.message,
         })
     }
 })
