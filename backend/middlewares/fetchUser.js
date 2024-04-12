@@ -1,28 +1,26 @@
-const jwt = require('jsonwebtoken')
-require('dotenv').config()
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const fetchUser = (req, res, next) => {
     try {
-
-
         const authToken = req.header('authtoken');
-        // console.log("authToken: ",authToken);
 
-        if (!authToken) return res.json({ ERROR: "You didn't provided access Token yet..." })
+        if (!authToken) {
+            return res.status(401).json({ error: "Authentication token missing" });
+        }
 
         jwt.verify(authToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-            if (err) return res.json({ ERROR: "You don't have access with this token..." })
-            req.user = user
+            if (err) {
+                return res.status(401).json({ error: "Invalid authentication token" });
+            }
 
-        // console.log("req.user: ",req.user);
-            next()
-        })
+            // Attach the user information to the request object
+            req.user = user;
+            next();
+        });
     } catch (error) {
-        res.json({
-            message: "Some Error occures",
-            ERROR: error.message
-        })
+        res.status(500).json({ error: "Internal server error", message: error.message });
     }
-}
+};
 
-module.exports = fetchUser
+module.exports = fetchUser;
