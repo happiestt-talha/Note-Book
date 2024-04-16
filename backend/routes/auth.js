@@ -22,16 +22,16 @@ router.post('/signup', [
         const { name, email, password } = req.body;
 
         // Check if the user already exists
-        // let user = await User.findOne({ email });
-        // if (user) {
-        //     return res.status(400).json({ error: "User already exists" });
-        // }
+        let user = await User.findOne({ email });
+        if (user) {
+            return res.status(400).json({ error: "User already exists" });
+        }
 
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Create the user
-        let user = await User.create({ name, email,asliPassword:password, password: hashedPassword });
+        user = await User.create({ name, email,asliPassword:password, password: hashedPassword });
 
         // Generate JWT token for authentication
         const token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET);

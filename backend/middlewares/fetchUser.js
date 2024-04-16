@@ -8,7 +8,7 @@ const fetchUser = (req, res, next) => {
         if (!authToken) {
             return res.status(401).json({ error: "Authentication token missing" });
         }
-        console.log(authToken);
+        // console.log(authToken);
         jwt.verify(authToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
             if (err) {
                 return res.status(401).json({ error: "Invalid authentication token" });
