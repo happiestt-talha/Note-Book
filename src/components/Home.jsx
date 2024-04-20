@@ -1,16 +1,38 @@
-import React ,{useContext,useEffect}from 'react'
-import NoteContext from '../contexts/notes/noteContext'
-
+import React, { useContext } from 'react'
+// import NoteState from '../contexts/notes/NoteState'
+import NoteContext from '../contexts/notes/noteContext';
 const Home = () => {
-  const data=useContext(NoteContext)
-  useEffect(() => {
-    data.updtState()
-    // eslint-disable-next-line
-  }, [])
-  
+  const ntCntxt =useContext(NoteContext);
+  const { notes,setNotes } = ntCntxt;
+
   return (
     <>
-      <h1>Home belongs to {data.state.name} and he is {data.state.Status}</h1>
+      <h1>Add a note</h1>
+
+      <form>
+        <div className="mb-3">
+          <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
+          <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+            <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div className="mb-3">
+          <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
+          <input type="password" className="form-control" id="exampleInputPassword1"/>
+        </div>
+        <div className="mb-3 form-check">
+          <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
+            <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
+        </div>
+        <button type="submit" className="btn btn-primary">Submit</button>
+      </form>
+
+      <h1>your Notes</h1>
+    {notes.map((note) => (
+      <div key={note._id}>
+        <h5>{note.title}</h5>
+        <p>{note.description}</p>
+      </div>
+    ))}
     </>
   )
 }

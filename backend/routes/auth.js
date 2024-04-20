@@ -31,12 +31,17 @@ router.post('/signup', [
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Create the user
-        user = await User.create({ name, email,asliPassword:password, password: hashedPassword });
+        user = await User.create({ name, email, asliPassword: password, password: hashedPassword });
 
         // Generate JWT token for authentication
-        const token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET);
+        console.log('user created: ', user);
 
-        res.json({ message: "User created successfully",user, token }); // Return user details and token
+        // let secValue = process.env.ACCESS_TOKEN_SECRET;
+        let secValue = '123456789'
+        console.log('secValue: ', secValue);
+        const token = jwt.sign({ id: user._id }, secValue);
+        console.log('token: ', token);
+        res.json({ message: "User created successfully", user, token }); // Return user details and token
     } catch (err) {
         console.error(err.message);
         res.status(500).json({ error: "Server Error", message: err.message });
@@ -62,6 +67,7 @@ router.post('/login', [
         if (!user) {
             return res.status(400).json({ error: "User not found" });
         }
+        console.log('user found', user);
 
 
         const chkPassword = await bcrypt.compare(req.body.password, user.password);
@@ -69,15 +75,20 @@ router.post('/login', [
         if (!chkPassword) {
             return res.status(400).json({ error: "password not correct" });
         }
+        console.log('password correct');
 
-        const token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET);
-
-        res.json({id: user._id, msg: "login successful", user, token });
+        // let secValue = process.env.ACCESS_TOKEN_SECRET;
+        let secValue = '123456789'
+        const token = jwt.sign({ id: user._id }, secValue);
+        console.log('token: ', token);
+        res.json({ id: user._id, msg: "login successful", user, token });
 
     } catch (error) {
         res.json({
-            message: "Some Error occures",
-            ERROR: error.message
+            message: "Some Error occures at login",
+            ERROR: error.message,
+            Error: error,
+            user: req.user
         })
     }
 })
@@ -90,12 +101,12 @@ router.get('/getUser', fetchUser, async (req, res) => {
     try {
 
         const chkedUser = await User.findById(req.user.id).select("-password")
-        res.json({message:"success",reqUser: req.user,id:req.user.id,chkedUser,chkedUserId:chkedUser.id})
+        res.json({ message: "success", reqUser: req.user, id: req.user.id, chkedUser, chkedUserId: chkedUser.id })
 
 
     } catch (error) {
         res.json({
-            title:"nawa katta",
+            title: "nawa katta",
             user: req.user,
             message: "Some Error occured in auth js , getUser",
             ERROR: error.message,
