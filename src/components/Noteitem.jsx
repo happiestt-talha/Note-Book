@@ -8,6 +8,11 @@ const Noteitem = (props) => {
                     <div className="card-body">
                         <h5 className="card-title">{note.title}</h5>
                         <p className="card-text">{note.description}</p>
+                        <div className="d-flex gap-3">
+                        <i class="fa-sharp fa-solid fa-trash"></i>
+                        <i class="fa-sharp fa-solid fa-pen-to-square"></i>
+
+                        </div>
                     </div>
             </div>
         </>
