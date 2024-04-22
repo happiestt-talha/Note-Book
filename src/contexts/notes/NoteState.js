@@ -70,9 +70,26 @@ const NoteState = (props) => {
     
     const [notes, setNotes] = useState(notesInitial)
 
+//ADD A NOTE
+    const addNote = (n) => {
+        //eslint-disable-next-line
+        const note={
+            "_id": "661d374ad875e129bbf3c3dc",
+            "user": "661943cb7893239ef7b8a43b",
+            "title": n.title,
+            "description": n.description,
+            "tag": n.tag,
+            "date": "2024-04-15T14:18:50.068Z",
+            "__v": 0
+        }
+        setNotes(notes.concat(note))
+    }
+//DELETE A NOTE
+
+//EDIT A NOTE
     return (
 
-        <NoteContext.Provider value={{notes,setNotes}}>
+        <NoteContext.Provider value={{notes,setNotes,addNote}}>
             {props.children}
         </NoteContext.Provider>
     )
