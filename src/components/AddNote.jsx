@@ -13,9 +13,6 @@ const AddNote = () => {
     }
     const handleOnChange = (e) => {
         setNote({...note,[e.target.name]:e.target.value})
-        // console.log('e.target.name: ',e.target.name);
-        // console.log('e.target.value: ',e.target.value);
-        // console.log('note: ',note);
     }
     return (
         <>
