@@ -10,6 +10,8 @@ const NoteState = (props) => {
         const response= await fetch(`${host}api/notes/addnote`,{
             method:'POST',
         })
+        const json=response.json();
+        console.log(json);
         //eslint-disable-next-line
         const note={
             "_id": "661d374ad875e129bbf3c3dc",
