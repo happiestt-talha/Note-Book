@@ -22,8 +22,6 @@ const getNotes = async () => {
     setNotes(json)
 }
 
-
-
 //ADD A NOTE
     const addNote =async (n) => {
         const response= await fetch(`${host}api/notes/addnote`,{
