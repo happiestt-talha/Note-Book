@@ -9,7 +9,7 @@ const AddNote = () => {
     const  handleClick = (e) => {
         //prevent default
         e.preventDefault();
-        addNote(note)
+        addNote(note.title,note.description,note.tag)
     }
     const handleOnChange = (e) => {
         setNote({...note,[e.target.name]:e.target.value})

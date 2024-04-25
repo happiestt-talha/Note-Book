@@ -23,14 +23,14 @@ const getNotes = async () => {
 }
 
 //ADD A NOTE
-    const addNote =async (n) => {
+    const addNote =async (title,description,tag) => {
         const response= await fetch(`${host}api/notes/addnote`,{
             method:'POST',
             headers:{
                 'Content-Type':'application/json',
                 'authToken':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTk0M2NiNzg5MzIzOWVmN2I4YTQzYiIsImlhdCI6MTcxNDA0OTQwMn0.6KDi03lsffPxP3MlCMu1XzsjBofkP5iuM2h9WagKblg'
             },
-            body:JSON.stringify({title:n.title,description:n.description,tag:n.tag})
+            body:JSON.stringify({title,description,tag})
         })
         const json=await response.json();
         console.log(json);
@@ -38,9 +38,9 @@ const getNotes = async () => {
         const note={
             "_id": "661d374ad875e129bbf3c3dc",
             "user": "661943cb7893239ef7b8a43b",
-            "title": n.title,
-            "description": n.description,
-            "tag": n.tag,
+            "title": title,
+            "description": description,
+            "tag": tag,
             "date": "2024-04-15T14:18:50.068Z",
             "__v": 0
         }
