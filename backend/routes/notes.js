@@ -9,8 +9,8 @@ router.get('/getnotes', fetchUser, async (req, res) => {
     try {
         // res.json({reqUser:req.user})
         const userNotes = await Note.find({ user: req.user.id });
-        res.json({ reqUser: req.user, userNotes });
-        // res.json(userNotes);
+        // res.json({ reqUser: req.user, userNotes });
+        res.json(userNotes);
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
