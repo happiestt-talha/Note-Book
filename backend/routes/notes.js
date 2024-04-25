@@ -35,8 +35,8 @@ router.post('/addnote', fetchUser, [
             tag
         });
         const savedNote = await newNote.save();
-        res.json({ reqUser: req.user, savedNote });
-        // res.json(savedNote);
+        // res.json({ reqUser: req.user, savedNote });
+        res.json(savedNote);
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
@@ -63,7 +63,9 @@ router.put('/updatenote/:id', fetchUser, async (req, res) => {
         }
 
         note = await Note.findByIdAndUpdate(req.params.id, { $set: newNote }, { new: true })
-        res.json({ note });
+        // res.json({ note });
+        res.json( note );
+
     }
     catch (err) {
         console.error(err.message);
@@ -84,7 +86,8 @@ router.delete('/deletenote/:id', fetchUser, async (req, res) => {
             return res.status(401).send('Not Allowed');
         }
         note =await Note.findByIdAndDelete(req.params.id)
-        res.json({ "Success": "Note has been deleted", note: note });
+        // res.json({ "Success": "Note has been deleted", note: note });
+        res.json( note );
     }
 
     catch (err) {
