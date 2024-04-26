@@ -24,7 +24,7 @@ router.post('/addnote', fetchUser, [
     body('description').notEmpty().withMessage('Description is required')
 ], async (req, res) => {
     const errors = validationResult(req);
-    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+    if (!errors.isEmpty()) return res.status(400).json(errors.array());
     // res.json({reqUser:req.user})
     const { title, description, tag } = req.body;
     try {
@@ -86,8 +86,8 @@ router.delete('/deletenote/:id', fetchUser, async (req, res) => {
             return res.status(401).send('Not Allowed');
         }
         note =await Note.findByIdAndDelete(req.params.id)
-        // res.json({ "Success": "Note has been deleted", note: note });
-        res.json( note );
+        res.json({ "Success": "Note has been deleted", note: note });
+        // res.json( note );
     }
 
     catch (err) {
