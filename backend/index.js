@@ -6,7 +6,15 @@ connectToMongo();
 const app = express();
 const port = 5000;
 
-app.use(cors())
+// app.use(cors())
+
+//*Be more CORS friendly
+app.use(cors({
+  origin: '*', // Allow requests from all origins
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
+}));
+
 app.use(express.json());
 //  default main route 
 app.get('/', (req, res) => res.send('Hello from main route'));
