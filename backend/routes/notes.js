@@ -53,6 +53,9 @@ router.put('/updatenote/:id', fetchUser, async (req, res) => {
         if (description) { newNote.description = description }
         if (tag) { newNote.tag = tag }
 
+        // console.log('BE req.params.id: ',req.params.id);
+        // console.log('BE newNote: ',newNote);
+        
         let note = await Note.findById(req.params.id);
         if (!note) {
             return res.status(404).send('Not Found');
@@ -68,7 +71,7 @@ router.put('/updatenote/:id', fetchUser, async (req, res) => {
 
     }
     catch (err) {
-        console.error(err.message);
+        console.error('BE Error: ',err.message);
         res.status(500).send('Server Error');
     }
 })
@@ -96,4 +99,6 @@ router.delete('/deletenote/:id', fetchUser, async (req, res) => {
     }
 
 })
+
+
 module.exports = router;

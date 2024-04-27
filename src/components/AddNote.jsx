@@ -21,14 +21,14 @@ const AddNote = () => {
             <form>
                 <div className="mb-3">
                     <label htmlFor="title" className="form-label">Title</label>
-                    <input onChange={handleOnChange} type="email" className="form-control" id="title" name="title" aria-describedby="emailHelp" />
+                    <input onChange={handleOnChange} type="text" className="form-control" id="title" name="title" aria-describedby="emailHelp" />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="description" className="form-label">Description</label>
                     <input onChange={handleOnChange} type="text" className="form-control" id="description" name="description" />
                 </div>
                 
-                <button type="submit" onClick={handleClick} className="btn btn-primary">Submit</button>
+                <button type="submit" onClick={handleClick} className="btn btn-primary">Add Note</button>
             </form>
         </>
     )

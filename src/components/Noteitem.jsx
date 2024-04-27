@@ -3,8 +3,8 @@ import NoteContext from '../contexts/notes/noteContext'
 
 const Noteitem = (props) => {
     const context=useContext(NoteContext)
-    const {deleteNote,editNote}=context
-    const { note } = props
+    const {deleteNote}=context
+    const { note, updateNote } = props
     return (
         <>
             <div className="card my-4">
@@ -15,7 +15,7 @@ const Noteitem = (props) => {
                     <div className="d-flex gap-3 p-1 bg-primary-subtle justify-content-center">
                         {/*this note is coming from the Upar wala note*/}
                         <i className="fa-sharp fa-solid fa-trash" onClick={()=>{deleteNote(note._id)}}></i>
-                        <i className="fa-sharp fa-solid fa-pen-to-square" onClick={()=>{editNote(note._id)}}></i>
+                        <i className="fa-sharp fa-solid fa-pen-to-square" onClick={()=>{updateNote(note)}}></i>
                     </div>
                 </div>
             </div>
