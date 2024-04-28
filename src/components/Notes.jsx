@@ -5,8 +5,8 @@ import AddNote from './AddNote';
 
 const Notes = () => {
     const ntCntxt = useContext(NoteContext);
-    // eslint-disable-next-line
-    const { notes, setNotes, getNotes, editNote } = ntCntxt;
+    const { notes, getNotes, editNote } = ntCntxt;
+
     useEffect(() => {
         getNotes()
         // eslint-disable-next-line
@@ -16,6 +16,7 @@ const Notes = () => {
     const refClose = useRef(null)
     const refFocus = useRef(null)
     const [note, setNote] = useState({id:"", etitle: "", edescription: "", etag: "" })
+    
     const updateNote = (crntNote) => {
         ref.current.click()
         setTimeout(() => {
@@ -39,11 +40,11 @@ const Notes = () => {
         <>
             <AddNote />
 
-            <button type="button" className="btn btn-primary d-none" ref={ref}  data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button type="button" className="d-none" ref={ref}  data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Launch demo modal
             </button>
 
-            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="exampleModal" tabIndex="-1">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -73,6 +74,9 @@ const Notes = () => {
             </div>
 
             <h1 className='my-3 text-center text-capitalize bg-black bg-gradient text-white'>Your Notes</h1>
+
+            {notes.length === 0 && "No notes to display"}
+
             <div className="row">
                 {notes.map((note) => {
                     return <div className="col-md-4" key={note._id}>

@@ -17,4 +17,15 @@ html{
 }
 i{
   cursor: pointer;
+  transition: 0.3s;
+}
+i.fa-sharp.fa-solid.fa-trash{
+  color: red;
+}
+i.fa-sharp.fa-solid.fa-pen-to-square{
+  color: blue;
+}
+i:hover{
+  /* color: red; */
+  scale: 1.2;
 }

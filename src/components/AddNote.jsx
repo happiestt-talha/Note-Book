@@ -10,6 +10,7 @@ const AddNote = () => {
         //prevent default
         e.preventDefault();
         addNote(note.title,note.description,note.tag)
+        setNote({title:"",description:"",tag:""})
     }
     const handleOnChange = (e) => {
         setNote({...note,[e.target.name]:e.target.value})
@@ -21,11 +22,11 @@ const AddNote = () => {
             <form>
                 <div className="mb-3">
                     <label htmlFor="title" className="form-label">Title</label>
-                    <input onChange={handleOnChange} type="text" className="form-control" id="title" name="title" aria-describedby="emailHelp" />
+                    <input onChange={handleOnChange} type="text" className="form-control" value={note.title} id="title" name="title" aria-describedby="emailHelp" />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="description" className="form-label">Description</label>
-                    <input onChange={handleOnChange} type="text" className="form-control" id="description" name="description" />
+                    <input onChange={handleOnChange} type="text" className="form-control" value={note.description} id="description" name="description" />
                 </div>
                 
                 <button type="submit" onClick={handleClick} className="btn btn-primary">Add Note</button>
