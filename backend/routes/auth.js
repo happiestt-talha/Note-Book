@@ -44,8 +44,8 @@ router.post('/signup', [
         // console.log('secValue: ', secValue);
         const token = jwt.sign({ id: user._id }, secValue);
         // console.log('token: ', token);
-        res.json({ success,message: "User created successfully", user, token }); // Return user details and token
         success=true
+        res.json({ success,message: "User created successfully", user, token }); // Return user details and token
     } catch (err) {
         // console.error(err.message);
         res.status(500).json({ error: "Server Error", message: err.message });
