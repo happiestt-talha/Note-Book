@@ -26,6 +26,10 @@ export const Navbar = () => {
               </li>
             </ul>
             
+            <div className="d-flex">
+              <Link className="btn btn-outline-light mx-1" to="/login">Login</Link>
+              <Link className="btn btn-outline-light mx-1" to="/signup">Signup</Link>
+            </div>
           </div>
 
         </div>

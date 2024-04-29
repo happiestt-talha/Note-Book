@@ -5,7 +5,7 @@ const remConString="mongodb+srv://talha:water714@inotebook.cwvqnd5.mongodb.net/"
 const remURI="mongodb+srv://talha:water714@inotebook.cwvqnd5.mongodb.net/?retryWrites=true&w=majority&appName=iNoteBook"
 const connectToMongo = async () => {
     try {
-        await mongoose.connect(remURI);
+        await mongoose.connect(URI);
         console.log("Connected to MongoDB successfully: ");
     }
     catch (err) {
