@@ -1,34 +1,37 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+const Login = () => {
+  let navigate = useNavigate();
 
-const Login =  () => {
-  const [creds, setCreds] = useState({email:"",password:""})
+  const [creds, setCreds] = useState({ email: "", password: "" })
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('Form submitted');
-    console.log('creds: ',creds);
-  const response =await fetch('http://localhost:5000/api/auth/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body:JSON.stringify({email:creds.email,password:creds.password})
-  })
-  const data=await response.json()
-  console.log('response: ',data );
-  if(data.success){
-    localStorage.setItem('token',data.authToken)
-    window.location='/'
-    console.log('login success');
+    console.log('creds: ', creds);
+    const response = await fetch('http://localhost:5000/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email: creds.email, password: creds.password })
+    })
+    const data = await response.json()
+    console.log('response: ', data);
+    if (data.success) {
+      localStorage.setItem('token', data.token)
+      // window.location='/'
+      navigate('/')
+      console.log('login success');
+    }
+    else {
+      alert('invalid credentials')
+    }
+
   }
-  else{
-    alert('invalid credentials')
+  const handleChange = (e) => {
+    setCreds({ ...creds, [e.target.id]: e.target.value })
   }
-  
-}
-const handleChange = (e) => {
-  setCreds({...creds,[e.target.id]:e.target.value})
-}
 
 
   return (
