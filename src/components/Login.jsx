@@ -25,7 +25,7 @@ const Login = (props) => {
       localStorage.setItem('token', data.token)
       // window.location='/'
       navigate('/')
-      console.log('login success');
+      showAlert("login success", "success")
     }
     else {
       showAlert("invalid credentials", "danger")

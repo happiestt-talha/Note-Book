@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState,useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
+import NoteContext from '../contexts/notes/noteContext';
 
 const Signup = () => {
   const [creds, setCreds] = useState({name: "", email: "", password: "",cpassword:""});
   const navigate=useNavigate();
-
+  const ntCntxt = useContext(NoteContext)
+  const { showAlert } = ntCntxt
   const handleSubmit =async (e) => {
     e.preventDefault();
     // console.log('Signup form submitted with values: ', creds);
@@ -28,6 +30,7 @@ const Signup = () => {
       // window.location='/'
       navigate('/')
       console.log('signup success');
+      showAlert("signup success", "success")
     }
   }
 

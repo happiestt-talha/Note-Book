@@ -7,18 +7,15 @@ import { useNavigate } from 'react-router-dom';
 const Notes = () => {
     const navigate = useNavigate()
     const ntCntxt = useContext(NoteContext);
-    const { notes, getNotes, editNote,showAlert,Alert } = ntCntxt;
+    const { notes, getNotes, editNote,showAlert } = ntCntxt;
     
     useEffect(() => {
         if (localStorage.getItem('token')) {
             getNotes()
         }
         else{
-            // showAlert('Login First','danger')
             navigate('/login')
         }
-        console.log('Alert: ', Alert);
-        console.log('Show Alert: ', showAlert);
         // eslint-disable-next-line
     }, [])
 
@@ -41,6 +38,7 @@ const Notes = () => {
 
         editNote(note.id,note.etitle,note.edescription,note.etag)
         refClose.current.click()
+        showAlert("Note Updated Successfully","success")
         // setNote({ etitle: e.title, edescription: e.description, etag: e.tag })
     }
     const handleOnChange = (e) => {
