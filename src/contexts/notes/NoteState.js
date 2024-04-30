@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 const NoteState = (props) => {
 
     const [notes, setNotes] = useState([])
-    const [alert, setAlert] = useState({ msg: "An ALert from COntext", type: "success" })
-    // const [alert, setAlert] = useState(null)
+    // const [alert, setAlert] = useState({ msg: "An ALert from COntext", type: "success" })
+    const [alert, setAlert] = useState(null)
     const host = 'http://localhost:5000/'
     // const host = 'https://inotes-on.vercel.app/'
 
@@ -17,7 +17,7 @@ const NoteState = (props) => {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'authtoken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTk0M2NiNzg5MzIzOWVmN2I4YTQzYiIsImlhdCI6MTcxNDA0OTQwMn0.6KDi03lsffPxP3MlCMu1XzsjBofkP5iuM2h9WagKblg'
+                    'authtoken': localStorage.getItem('token')
                 }
             })
             const json = await response.json()
@@ -34,7 +34,7 @@ const NoteState = (props) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'authToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTk0M2NiNzg5MzIzOWVmN2I4YTQzYiIsImlhdCI6MTcxNDA0OTQwMn0.6KDi03lsffPxP3MlCMu1XzsjBofkP5iuM2h9WagKblg'
+                'authToken': localStorage.getItem('token')
             },
             body: JSON.stringify({ title, description, tag })
         })
@@ -48,7 +48,7 @@ const NoteState = (props) => {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                'authToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTk0M2NiNzg5MzIzOWVmN2I4YTQzYiIsImlhdCI6MTcxNDA0OTQwMn0.6KDi03lsffPxP3MlCMu1XzsjBofkP5iuM2h9WagKblg'
+                'authToken': localStorage.getItem('token')
             }
         })
         //eslint-disable-next-line
@@ -63,7 +63,7 @@ const NoteState = (props) => {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'authToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTk0M2NiNzg5MzIzOWVmN2I4YTQzYiIsImlhdCI6MTcxNDA0OTQwMn0.6KDi03lsffPxP3MlCMu1XzsjBofkP5iuM2h9WagKblg'
+                'authToken': localStorage.getItem('token')
             },
             body: JSON.stringify({ title, description, tag })
         })
@@ -85,10 +85,7 @@ const NoteState = (props) => {
     }
 
     const showAlert = (message, type) => {
-        setAlert({
-            msg: message,
-            type: type
-        })
+        setAlert({msg: message,type: type})
         setTimeout(() => {
             setAlert(null)
         }, 3000)

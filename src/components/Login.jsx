@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import NoteContext from '../contexts/notes/noteContext';
 const Login = (props) => {
   let navigate = useNavigate();
-
   const [creds, setCreds] = useState({ email: "", password: "" })
+
+  const ntCntxt = useContext(NoteContext)
+  const { showAlert } = ntCntxt
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +28,7 @@ const Login = (props) => {
       console.log('login success');
     }
     else {
-      props.showAlert("invalid credentials", "danger")
+      showAlert("invalid credentials", "danger")
     }
 
   }

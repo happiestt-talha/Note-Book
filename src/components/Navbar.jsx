@@ -1,9 +1,12 @@
 import React from 'react'
-import { Link,useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 export const Navbar = () => {
-  const location=useLocation();
-  
+  const location = useLocation();
+  const handleLogout = () => {
+    localStorage.removeItem('token')
+  }
+
   return (
     <>
       <nav className="navbar navbar-expand-md navbar-dark bg-dark">
@@ -16,7 +19,7 @@ export const Navbar = () => {
           <div className="collapse navbar-collapse" id="navToggler">
 
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              
+
               <li className="nav-item">
                 <Link className={`nav-link ${location.pathname === "/home" ? "active" : ""}`} to="/home">Home</Link>
               </li>
@@ -25,10 +28,15 @@ export const Navbar = () => {
                 <Link className={`nav-link ${location.pathname === "/about" ? "active" : ""}`} to="/about">About</Link>
               </li>
             </ul>
-            
+
             <div className="d-flex">
-              <Link className="btn btn-outline-light mx-1" to="/login">Login</Link>
-              <Link className="btn btn-outline-light mx-1" to="/signup">Signup</Link>
+              {localStorage.getItem('token')
+                ?<Link className="btn btn-outline-light mx-1" onClick={handleLogout} to="/login">Logout</Link>
+                :<>
+                  <Link className="btn btn-outline-light mx-1" to="/login">Login</Link>
+                  <Link className="btn btn-outline-light mx-1" to="/signup">Signup</Link>
+                </>
+              }
             </div>
           </div>
 

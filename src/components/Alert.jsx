@@ -1,17 +1,18 @@
-import React, { useContext } from 'react'
-import NoteContext from '../contexts/notes/noteContext'
+import React, { useContext } from 'react';
+import NoteContext from '../contexts/notes/noteContext';
 
 const Alert = () => {
-    const ntCntxt = useContext(NoteContext)
-    const { alert } = ntCntxt
-    // ntCntxt.showAlert("hello", "warning")
+    const { alert } = useContext(NoteContext);
+    
     return (
         <>
-            <div className={`alert alert-${alert.type}`} role="alert">
-                {alert.msg}
-            </div>
+            {alert && (
+                <div className={`alert alert-${alert.type}`} role="alert">
+                    {alert.msg}
+                </div>
+            )}
         </>
-    )
-}
+    );
+};
 
-export default Alert
+export default Alert;
