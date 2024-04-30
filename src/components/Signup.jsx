@@ -1,11 +1,18 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
-  const [creds, setCreds] = useState({name: "", email: "", password: ""});
+  const [creds, setCreds] = useState({name: "", email: "", password: "",cpassword:""});
+  const navigate=useNavigate();
+
   const handleSubmit =async (e) => {
     e.preventDefault();
-    console.log('Signup form submitted with values: ', creds);
-
+    // console.log('Signup form submitted with values: ', creds);
+    if(creds.password!==creds.cpassword){
+      alert('passwords do not match')
+      // console.log('passwords do not match, User cancelled signup') ;
+      return
+    }
     const response=await fetch('http://localhost:5000/api/auth/signup', {
       method:'POST',
       headers: {
@@ -14,7 +21,14 @@ const Signup = () => {
       body: JSON.stringify({ name: creds.name, email: creds.email, password: creds.password })
     })
     const data = await response.json();
-    console.log('response: ', data);
+
+    // console.log('response: ', data);
+    if (data.success) {
+      localStorage.setItem('token', data.token)
+      // window.location='/'
+      navigate('/')
+      console.log('signup success');
+    }
   }
 
   const hanldeChange = (e) => {
@@ -37,6 +51,10 @@ const Signup = () => {
           <div className="mb-3">
             <label className="form-check-label" htmlFor="password">Password:</label>
             <input type="password" className="form-control" onChange={hanldeChange} value={creds.password} id="password" />
+          </div>
+          <div className="mb-3">
+            <label className="form-check-label" htmlFor="cpassword">Confirm Password:</label>
+            <input type="password" className="form-control" onChange={hanldeChange} value={creds.cpassword} id="cpassword" />
           </div>
 
           <button type="submit" className="btn btn-primary">Submit</button>

@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 //specify a databse named 'inotebook' 
-const URI = "mongodb://localhost:27017/inotebook";
+// const URI = "mongodb://localhost:27017/inotebook";
 // const remConString="mongodb+srv://talha:water714@inotebook.cwvqnd5.mongodb.net/"
-// const remURI="mongodb+srv://talha:water714@inotebook.cwvqnd5.mongodb.net/?retryWrites=true&w=majority&appName=iNoteBook"
+const remURI="mongodb+srv://talha:water714@inotebook.cwvqnd5.mongodb.net/?retryWrites=true&w=majority&appName=iNoteBook"
 const connectToMongo = async () => {
     try {
-        await mongoose.connect(URI);
+        await mongoose.connect(remURI);
         console.log("Connected to MongoDB successfully: ");
     }
     catch (err) {
