@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 const NoteState = (props) => {
 
     const [notes, setNotes] = useState([])
+    const [alert, setAlert] = useState({ msg: "An ALert from COntext", type: "success" })
+    // const [alert, setAlert] = useState(null)
     const host = 'http://localhost:5000/'
     // const host = 'https://inotes-on.vercel.app/'
 
@@ -82,9 +84,19 @@ const NoteState = (props) => {
 
     }
 
+    const showAlert = (message, type) => {
+        setAlert({
+            msg: message,
+            type: type
+        })
+        setTimeout(() => {
+            setAlert(null)
+        }, 3000)
+    }
+
     return (
 
-        <NoteContext.Provider value={{ notes, setNotes, addNote, deleteNote, editNote, getNotes }}>
+        <NoteContext.Provider value={{ notes, setNotes, addNote, deleteNote, editNote, getNotes, showAlert, alert }}>
             {props.children}
         </NoteContext.Provider>
     )

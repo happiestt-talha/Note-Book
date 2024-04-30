@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import NoteContext from '../contexts/notes/noteContext'
 
-const Alert = (props) => {
+const Alert = () => {
+    const ntCntxt = useContext(NoteContext)
+    const { alert } = ntCntxt
+    // ntCntxt.showAlert("hello", "warning")
     return (
         <>
-            <div className={`alert alert-${props.type}`} role="alert">
-                {props.message}
+            <div className={`alert alert-${alert.type}`} role="alert">
+                {alert.msg}
             </div>
         </>
     )

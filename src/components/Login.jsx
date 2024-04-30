@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-const Login = () => {
+const Login = (props) => {
   let navigate = useNavigate();
 
   const [creds, setCreds] = useState({ email: "", password: "" })
@@ -25,7 +25,7 @@ const Login = () => {
       console.log('login success');
     }
     else {
-      alert('invalid credentials')
+      props.showAlert("invalid credentials", "danger")
     }
 
   }
