@@ -1,0 +1,6 @@
+h1{
+    font-size: 3rem;
+    font-family: var(--font-family1);
+    text-align: center;
+    color: var(--primary-color);
+}

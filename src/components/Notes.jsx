@@ -3,6 +3,7 @@ import NoteContext from '../contexts/notes/noteContext';
 import Noteitem from './Noteitem';
 import AddNote from './AddNote';
 import { useNavigate } from 'react-router-dom';
+import './css/Notes.css'
 
 const Notes = () => {
     const navigate = useNavigate()
@@ -81,7 +82,7 @@ const Notes = () => {
                 </div>
             </div>
 
-            <h1 className='my-3 text-center text-capitalize bg-black bg-gradient text-white'>Your Notes</h1>
+            <h1 style={{'fontFamily':'var(--font-family1)','color':'var(--primary-color)','backgroundColor':'pink'}}>Your Notes</h1>
 
             {notes.length === 0 && "No notes to display"}
 
