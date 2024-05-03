@@ -39,7 +39,8 @@ const Notes = () => {
 
         editNote(note.id,note.etitle,note.edescription,note.etag)
         refClose.current.click()
-        showAlert("Note Updated Successfully","success")
+        // showAlert("Note Updated Successfully","success")
+        console.log('note updated');
         // setNote({ etitle: e.title, edescription: e.description, etag: e.tag })
     }
     const handleOnChange = (e) => {
@@ -82,7 +83,7 @@ const Notes = () => {
                 </div>
             </div>
 
-            <h1 style={{'fontFamily':'var(--font-family1)','color':'var(--primary-color)','backgroundColor':'pink'}}>Your Notes</h1>
+            <h1>Your Notes</h1>
 
             {notes.length === 0 && "No notes to display"}
 
