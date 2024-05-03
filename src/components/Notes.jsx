@@ -39,8 +39,7 @@ const Notes = () => {
 
         editNote(note.id,note.etitle,note.edescription,note.etag)
         refClose.current.click()
-        // showAlert("Note Updated Successfully","success")
-        console.log('note updated');
+        showAlert("Note Updated Successfully","success")
         // setNote({ etitle: e.title, edescription: e.description, etag: e.tag })
     }
     const handleOnChange = (e) => {

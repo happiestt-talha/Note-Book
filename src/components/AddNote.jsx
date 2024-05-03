@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import NoteContext from '../contexts/notes/noteContext'
-import alertContext from '../contexts/Alerts/alertContext'
+// import alertContext from '../contexts/Alerts/alertContext'
 import './css/AddNote.css'
 
 //! alertify.set('notifier', 'position', 'top-right');
@@ -8,8 +8,8 @@ import './css/AddNote.css'
 
 const AddNote = () => {
     const context = useContext(NoteContext);
-    const alcntxt=useContext(alertContext)
-    const { addNote } = context
+    // const alcntxt=useContext(alertContext)
+    const { addNote, showAlert } = context
     // const { showAlert } = alcntxt
 
     const [note, setNote] = useState({ title: "", description: "", tag: "" })
@@ -18,7 +18,7 @@ const AddNote = () => {
         e.preventDefault();
         addNote(note.title, note.description, note.tag)
         setNote({ title: "", description: "", tag: "" })
-        // showAlert("Note Added Successfully", "success")
+        showAlert("Note Added Successfully", "success")
     }
     const handleOnChange = (e) => {
         setNote({ ...note, [e.target.name]: e.target.value })

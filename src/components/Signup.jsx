@@ -30,8 +30,7 @@ const Signup = () => {
       // window.location='/'
       navigate('/')
       console.log('signup success');
-      // showAlert("signup success", "success")
-      
+      showAlert("signup success", "success")
     }
   }
 

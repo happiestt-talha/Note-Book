@@ -25,11 +25,10 @@ const Login = (props) => {
       localStorage.setItem('token', data.token)
       // window.location='/'
       navigate('/')
-      // showAlert("login success", "success")
+      showAlert("login success", "success")
     }
     else {
-      // showAlert("invalid credentials", "danger")
-      console.log('invalid credentials');
+      showAlert("invalid credentials", "danger")
     }
 
   }
