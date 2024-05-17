@@ -10,8 +10,9 @@ const fetchUser = (req, res, next) => {
         }
         // console.log(authToken);
 
-        // let secValue = process.env.ACCESS_TOKEN_SECRET;
-        let secValue='123456789'
+        let secValue = process.env.ACCESS_TOKEN_SECRET;
+        // let secValue='123456789'
+        // console.log(secValue);
         jwt.verify(authToken, secValue, (err, user) => {
             if (err) {
                 return res.status(401).json({ error: "Invalid authentication token" });

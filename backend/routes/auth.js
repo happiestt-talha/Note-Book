@@ -39,8 +39,8 @@ router.post('/signup', [
         // Generate JWT token for authentication
         // console.log('user created: ', user);
 
-        // let secValue = process.env.ACCESS_TOKEN_SECRET;
-        let secValue = '123456789'
+        let secValue = process.env.ACCESS_TOKEN_SECRET;
+        // let secValue = '123456789'
         // console.log('secValue: ', secValue);
         const token = jwt.sign({ id: user._id }, secValue);
         // console.log('token: ', token);
@@ -83,8 +83,8 @@ router.post('/login', [
         success=true
         // console.log('password correct');
 
-        // let secValue = process.env.ACCESS_TOKEN_SECRET;
-        let secValue = '123456789'
+        let secValue = process.env.ACCESS_TOKEN_SECRET;
+        // let secValue = '123456789'
         const token = jwt.sign({ id: user._id }, secValue);
         // console.log('token: ', token);
         res.json({success, id: user._id, msg: "login successful", user, token });
